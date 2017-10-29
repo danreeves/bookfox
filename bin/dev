@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+tmux has -t bookfox &> /dev/null
+
+if [ $? -eq 0 ]; then
+    tmux kill-session -t bookfox
+else
+    tmux new-session -s bookfox 'npm run dev:app' \; \
+        split-window 'npm run dev:server' \; \
+        split-window \; \
+        select-layout tiled \;
+fi
