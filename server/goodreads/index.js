@@ -20,7 +20,7 @@ routes.get('/account', isAuthenticated, function(req, res) {
 
 routes.get('/logout', function(req, res) {
     try {
-        console.log(req.logout())
+        req.logout()
         res
             .clearCookie('bookfox')
             .status(200)

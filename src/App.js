@@ -1,25 +1,28 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
 import { provideState } from 'freactal'
-import qs from 'qs'
 import Home from './pages/home'
 
 const withAppState = provideState({
-    initialState: props => ({ oauth_token: null, authorize: '0' }),
+    initialState: props => ({
+        user: undefined,
+        loading: true,
+    }),
     effects: {
-        initialize: (effects, props) => oldState => {
-            const querystring = qs.parse(
-                props.location.search.replace(/^\?/, '')
-            )
-            return {
-                ...oldState,
-                oauth_token:
-                    'oauth_token' in querystring
-                        ? querystring.oauth_token
-                        : null,
-                authorize:
-                    'authorize' in querystring ? querystring.authorize : null,
-            }
+        initialize: effects => effects.getUser(),
+        setLoading: (e, isLoading) => state => ({
+            ...state,
+            loading: isLoading,
+        }),
+        setUser: (e, user) => state => ({ ...state, user }),
+        getUser: async effects => async () => {
+            await effects.setLoading(true)
+            const res = await fetch('/api/account', {
+                credentials: 'same-origin',
+            })
+            const { user } = await res.json()
+            await effects.setUser(user)
+            await effects.setLoading(false)
         },
     },
 })
@@ -34,7 +37,7 @@ function App() {
 
 const WrappedApp = withRouter(withAppState(App))
 
-function RouterWrapper() {
+function AppWithRouter() {
     return (
         <Router>
             <WrappedApp />
@@ -42,4 +45,4 @@ function RouterWrapper() {
     )
 }
 
-export default RouterWrapper
+export default AppWithRouter

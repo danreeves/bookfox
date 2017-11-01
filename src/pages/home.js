@@ -11,17 +11,33 @@ function Login() {
     )
 }
 
-function LoggedIn() {
-    return <p>You're logged in!</p>
+function Logout() {
+    const logout = () => fetch('/api/logout', { credentials: 'same-origin' })
+    return <button onClick={logout}>Log out</button>
+}
+
+function LoggedIn({ user }) {
+    return (
+        <div>
+            <p>Hi {user.displayName}</p>
+            <Logout />
+        </div>
+    )
 }
 
 function Home({ state }) {
-    const { oauth_token, authorize } = state
-    const notAuthed = authorize !== '1' || !oauth_token
+    const { user, loading } = state
     return (
         <div>
             <h1>Home</h1>
-            {notAuthed ? <Login /> : <LoggedIn />}
+
+            {loading !== false ? (
+                'Loading...'
+            ) : user ? (
+                <LoggedIn user={user} />
+            ) : (
+                <Login />
+            )}
         </div>
     )
 }

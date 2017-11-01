@@ -19,7 +19,6 @@ export default function(routes) {
                 callbackURL: 'http://localhost:4000/api/oauth/callback',
             },
             function(token, tokenSecret, profile, done) {
-                console.log({ token, tokenSecret, profile })
                 return done(null, profile)
             }
         )
