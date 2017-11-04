@@ -5,8 +5,7 @@ import { GOODREADS_KEY, GOODREADS_SECRET } from '../../env'
 export default function(routes) {
     // Initialise passport
     passport.serializeUser(function(user, done) {
-        const { id, displayName } = user
-        done(null, { id, displayName })
+        done(null, user)
     })
     passport.deserializeUser(function(obj, done) {
         done(null, obj)
@@ -19,7 +18,7 @@ export default function(routes) {
                 callbackURL: 'http://localhost:4000/api/oauth/callback',
             },
             function(token, tokenSecret, profile, done) {
-                return done(null, profile)
+                return done(null, { token, tokenSecret, profile })
             }
         )
     )
