@@ -1,6 +1,6 @@
 import path from 'path'
 import express from 'express'
-import goodreads from './goodreads'
+import api from './api'
 import {
     PRODUCTION,
     GOODREADS_KEY,
@@ -16,7 +16,7 @@ if (PRODUCTION) {
     app.use('/', express.static(path.join(__dirname, '..', 'build')))
 }
 
-app.use('/api', goodreads)
+app.use('/api', api)
 
 const server = app.listen(process.env.PORT || 4000, function() {
     console.log(`> server started`)
