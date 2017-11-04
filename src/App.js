@@ -10,8 +10,11 @@ const withAppState = provideState({
     }),
     effects: {
         initialize: effects => effects.getUser(),
+
         setLoading: update((state, loading) => ({ loading })),
+
         setUser: update((state, user) => ({ user })),
+
         getUser: async effects => async () => {
             await effects.setLoading(true)
             try {
@@ -21,10 +24,12 @@ const withAppState = provideState({
                 const { user } = await res.json()
                 await effects.setUser(user)
             } catch (err) {
-                // some error handler
+                // TODO
+                // some error handler like a toast or error page
             }
             await effects.setLoading(false)
         },
+
         logout: async effects => async () => {
             await effects.setLoading(false)
             try {
@@ -40,22 +45,18 @@ const withAppState = provideState({
     },
 })
 
-function App() {
-    return (
-        <div>
-            <Route exact path="/" component={Home} />
-        </div>
-    )
-}
+const App = () => (
+    <div>
+        <Route exact path="/" component={Home} />
+    </div>
+)
 
 const WrappedApp = withRouter(withAppState(App))
 
-function AppWithRouter() {
-    return (
-        <Router>
-            <WrappedApp />
-        </Router>
-    )
-}
+const AppWithRouter = () => (
+    <Router>
+        <WrappedApp />
+    </Router>
+)
 
 export default AppWithRouter

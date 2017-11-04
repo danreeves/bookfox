@@ -34,7 +34,7 @@ routes.get('/bookshelves', isAuthenticated, async function(req, res) {
     }
 })
 
-routes.get('/bookshelf/:shelf', isAuthenticated, async function(req, res) {
+routes.get('/bookshelves/:shelf', isAuthenticated, async function(req, res) {
     const { shelf } = req.params
     const { token, tokenSecret } = req.user
     try {
