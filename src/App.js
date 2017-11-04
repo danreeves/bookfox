@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
-import { provideState } from 'freactal'
+import { provideState, update } from 'freactal'
 import Home from './pages/home'
 
 const withAppState = provideState({
@@ -10,18 +10,31 @@ const withAppState = provideState({
     }),
     effects: {
         initialize: effects => effects.getUser(),
-        setLoading: (e, isLoading) => state => ({
-            ...state,
-            loading: isLoading,
-        }),
-        setUser: (e, user) => state => ({ ...state, user }),
+        setLoading: update((state, loading) => ({ loading })),
+        setUser: update((state, user) => ({ user })),
         getUser: async effects => async () => {
             await effects.setLoading(true)
-            const res = await fetch('/api/account', {
-                credentials: 'same-origin',
-            })
-            const { user } = await res.json()
-            await effects.setUser(user)
+            try {
+                const res = await fetch('/api/account', {
+                    credentials: 'same-origin',
+                })
+                const { user } = await res.json()
+                await effects.setUser(user)
+            } catch (err) {
+                // some error handler
+            }
+            await effects.setLoading(false)
+        },
+        logout: async effects => async () => {
+            await effects.setLoading(false)
+            try {
+                await fetch('/api/logout', {
+                    credentials: 'same-origin',
+                })
+                await effects.setUser(undefined)
+            } catch (err) {
+                // some error handler
+            }
             await effects.setLoading(false)
         },
     },

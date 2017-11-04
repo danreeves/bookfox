@@ -11,10 +11,9 @@ function Login() {
     )
 }
 
-function Logout() {
-    const logout = () => fetch('/api/logout', { credentials: 'same-origin' })
-    return <button onClick={logout}>Log out</button>
-}
+const Logout = injectState(({ effects }) => (
+    <button onClick={effects.logout}>Logout</button>
+))
 
 function LoggedIn({ user }) {
     return (
