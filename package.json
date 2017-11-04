@@ -12,9 +12,9 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@std/esm": "^0.12.1",
+    "@std/esm": "^0.13.0",
     "body-parser": "^1.18.2",
-    "cloudant": "^1.8.0",
+    "cloudant": "^1.10.0",
     "connect-cloudant-store": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
@@ -30,16 +30,16 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
-    "styled-components": "^2.2.1"
+    "styled-components": "^2.2.3"
   },
   "devDependencies": {
     "dotenv": "^4.0.0",
-    "eslint-config-prettier": "^2.6.0",
+    "eslint-config-prettier": "^2.7.0",
     "husky": "^0.14.3",
     "lint-staged": "^4.2.3",
     "nodemon": "^1.12.1",
     "prettier": "^1.7.4",
-    "react-scripts": "1.0.14"
+    "react-scripts": "^1.0.17"
   },
   "proxy": "http://localhost:4000",
   "eslint": {
