@@ -1,5 +1,5 @@
 import React from 'react'
-import { provideState, injectState } from 'freactal'
+import { provideState, injectState, update } from 'freactal'
 import { get } from 'lodash'
 import Page from '../components/page'
 import titlify from '../lib/titlify'
@@ -9,9 +9,9 @@ const withShelfState = provideState({
         slug: null,
     }),
     effects: {
-        initialize: (effects, props) => () => ({
+        initialize: update((ef, props) => ({
             slug: get(props, 'slug', get(props, 'match.params.shelf', null)),
-        }),
+        })),
     },
 })
 
