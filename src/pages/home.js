@@ -1,44 +1,25 @@
 import React from 'react'
 import { injectState } from 'freactal'
+import Page from '../components/page'
+import Shelf from './shelf'
 import { API_URL } from '../lib/config'
 
 function Login() {
     return (
-        <div>
-            <p>You're not logged in</p>
+        <Page>
+            <p>You're not logged in.</p>
+            <p>
+                We need permission to see what books you're reading and move
+                them to shelves for you.
+            </p>
             <a href={`${API_URL}/oauth/goodreads`}>Authorise with Goodreads</a>
-        </div>
+        </Page>
     )
 }
 
-const Logout = injectState(({ effects }) => (
-    <button onClick={effects.logout}>Logout</button>
-))
-
-function LoggedIn({ user }) {
-    return (
-        <div>
-            <p>Hi {user.displayName}</p>
-            <Logout />
-        </div>
-    )
-}
-
-function Home({ state }) {
-    const { user, loading } = state
-    return (
-        <div>
-            <h1>Home</h1>
-
-            {loading !== false ? (
-                'Loading...'
-            ) : user ? (
-                <LoggedIn user={user} />
-            ) : (
-                <Login />
-            )}
-        </div>
-    )
+function Home({ state, effects }) {
+    const { user } = state
+    return user ? <Shelf slug="currently-reading" /> : <Login />
 }
 
 export default injectState(Home)

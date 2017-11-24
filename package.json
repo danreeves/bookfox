@@ -6,13 +6,14 @@
     "precommit": "lint-staged",
     "start": "NODE_ENV='production' node server/index.js",
     "dev:app": "react-scripts start",
-    "dev:server": "nodemon -x 'node -r dotenv/config -r @std/esm' -w server server/index.js",
+    "dev:server":
+      "nodemon -x 'node -r dotenv/config -r @std/esm' -w server server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@std/esm": "^0.13.0",
+    "@std/esm": "^0.17.1",
     "body-parser": "^1.18.2",
     "cloudant": "^1.10.0",
     "connect-cloudant-store": "^0.1.1",
@@ -20,7 +21,7 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "freactal": "^1.1.1",
-    "goodreads-api-node": "0.0.4",
+    "goodreads-api-node": "0.0.5",
     "lodash": "^4.17.4",
     "method-override": "^2.3.10",
     "morgan": "^1.9.0",
@@ -28,8 +29,8 @@
     "passport": "^0.4.0",
     "passport-goodreads": "^1.0.0",
     "qs": "^6.5.1",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
     "react-router-dom": "^4.2.2",
     "request-promise-native": "^1.0.5",
     "styled-components": "^2.2.3",
@@ -37,18 +38,16 @@
   },
   "devDependencies": {
     "dotenv": "^4.0.0",
-    "eslint-config-prettier": "^2.7.0",
+    "eslint-config-prettier": "^2.8.0",
     "husky": "^0.14.3",
-    "lint-staged": "^4.2.3",
+    "lint-staged": "^5.0.0",
     "nodemon": "^1.12.1",
-    "prettier": "^1.7.4",
+    "prettier": "^1.8.2",
     "react-scripts": "^1.0.17"
   },
   "proxy": "http://localhost:4000",
   "eslint": {
-    "extends": [
-      "prettier"
-    ]
+    "extends": ["prettier"]
   },
   "prettier": {
     "semi": false,
@@ -57,13 +56,7 @@
     "tabWidth": 4
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
-      "prettier --write",
-      "git add"
-    ]
+    "src/**/*.{js,jsx,json,css}": ["prettier --write", "git add"]
   },
-  "@std/esm": {
-    "esm": "all",
-    "cjs": true
-  }
+  "@std/esm": "cjs"
 }
